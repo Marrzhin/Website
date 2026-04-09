@@ -1,0 +1,111 @@
+{
+  "theme": "light",
+  "archetype": "Swiss & High-Contrast mixed with Neon Tech",
+  "domain": "Creative Tech Agency",
+  "brand_name": "Nuku Creative",
+  "colors": {
+    "background": "#FFFFFF",
+    "primary_accent": "#C3FF34",
+    "secondary_dark": "#142073",
+    "text_main": "#142073",
+    "text_muted": "#5A6494",
+    "surface_glass": "rgba(255, 255, 255, 0.7)",
+    "border_subtle": "rgba(20, 32, 115, 0.1)",
+    "neon_glow": "rgba(195, 255, 52, 0.4)"
+  },
+  "typography": {
+    "primary_font": "Neue Montreal, Cabinet Grotesk, sans-serif",
+    "secondary_font": "The Seasons, Playfair Display, serif",
+    "heading_style": "tracking-tighter leading-[0.9] text-[#142073]",
+    "body_style": "tracking-normal leading-relaxed text-[#5A6494]",
+    "emphasis_style": "font-serif italic font-light",
+    "sizes": {
+      "h1": "text-5xl md:text-7xl lg:text-[6.5rem]",
+      "h2": "text-4xl md:text-5xl lg:text-6xl",
+      "h3": "text-2xl md:text-3xl",
+      "body": "text-lg md:text-xl",
+      "small": "text-sm uppercase tracking-widest font-semibold"
+    }
+  },
+  "visual_effects": {
+    "grain_overlay": "Apply a fixed absolute div covering the screen with pointer-events-none, mix-blend-overlay, opacity-[0.03] to 0.05 and a background-image of a noise texture. Essential for the Awwwards tactile feel.",
+    "neon_orbs": "Use absolute positioned divs with w-[40vw] h-[40vw] rounded-full bg-[#C3FF34]/30 filter blur-[100px] md:blur-[140px] -z-10. Position one top-right, one bottom-left. Animate them slowly with Framer Motion (floating up/down).",
+    "glassmorphism": "backdrop-blur-xl bg-white/70 border border-[#142073]/5 shadow-sm",
+    "neon_hover": "hover:shadow-[0_0_30px_rgba(195,255,52,0.6)] hover:-translate-y-1 transition-all duration-300"
+  },
+  "layout_spacing": {
+    "section_padding": "py-24 md:py-32",
+    "container_padding": "px-6 md:px-12 max-w-7xl mx-auto",
+    "grid_gap": "gap-8 md:gap-12",
+    "bento_corners": "rounded-[2rem]"
+  },
+  "components": {
+    "header": {
+      "style": "Fixed top-0 left-0 right-0 z-50 glassmorphism py-4 border-b border-[#142073]/5",
+      "elements": "Logo (Nuku Creative in Neue Montreal bold/black), Navigation Links in center, CTA Button (Dark Blue bg, white/neon text) on right.",
+      "interaction": "Links hover state changes text color to #C3FF34 or adds an underline."
+    },
+    "hero": {
+      "layout": "Min-h-[90vh] flex flex-col justify-center items-center text-center relative overflow-hidden px-6",
+      "content": "Headline: 'We build creative systems for modern brands' where 'systems' and 'modern' are wrapped in a <span> with The Seasons, italic, lighter weight. Subtext: short agency description.",
+      "visuals": "Generous whitespace. The blurred neon green orb should sit gently behind the text to give it an ethereal glow."
+    },
+    "why_nuku": {
+      "layout": "CSS Grid (grid-cols-1 md:grid-cols-2).",
+      "items": "4 points as minimalist bento cards. border border-[#142073]/10 p-10 bg-white/50 backdrop-blur-md rounded-[2rem]. Hover adds subtle neon green drop shadow and darkens border.",
+      "content": "Use simple Lucide icons for each point, colored #142073."
+    },
+    "client_logos": {
+      "layout": "py-16 border-y border-[#142073]/5 overflow-hidden bg-white/50",
+      "implementation": "Use react-fast-marquee. Content: generic tech/corporate SVG logos (e.g., using Lucide shapes or simple text icons). Opacity 40%, grayscale. Hover on a logo transitions it to 100% opacity and adds a neon tint."
+    },
+    "portfolio_grid": {
+      "layout": "Staggered grid (grid-cols-1 md:grid-cols-2). First item can have mt-0, second item mt-0 md:mt-24 to create the stagger.",
+      "interaction": "Group hover on project card: image scales up slightly (scale-105 duration-700). Overlay with #142073/20 appears. A standard round button 'View Case' fades in at the center. Do NOT use custom mouse follower as per user request (Keep animations simpler)."
+    },
+    "about": {
+      "layout": "Two columns. Left: Massive typographic quote in The Seasons italic. Right: Agency description and the studio image.",
+      "image_style": "rounded-[2rem] overflow-hidden shadow-2xl mt-8"
+    },
+    "cta_section": {
+      "layout": "Relative overflow-hidden rounded-[3rem] mx-6 md:mx-12 my-24 p-12 md:p-24 text-center border border-[#142073]/10",
+      "background": "Use a complex background that combines #142073 (Dark Navy) with huge overlapping radial blurs of #C3FF34 (Neon Green). Add a noise overlay specifically over this section. The section text here should be white.",
+      "form": "Minimalist inputs inline or stacked. border-b border-white/30 bg-transparent text-white focus:border-[#C3FF34] focus:outline-none placeholder:text-white/50. Submit button: Solid #C3FF34 with #142073 text. On submit, hide form and show a beautifully styled success message (No backend integration)."
+    }
+  },
+  "media": {
+    "portfolio": [
+      {
+        "url": "https://images.unsplash.com/photo-1774997282921-f5f9709b1333?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwZGlnaXRhbCUyMGFic3RyYWN0JTIwM2R8ZW58MHx8fHwxNzc1NzQ5NTI0fDA&ixlib=rb-4.1.0&q=85",
+        "title": "Project Alpha",
+        "category": "3D Abstract"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1676116777245-1cc40079cd38?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHw0fHxibGFjayUyMGFuZCUyMHdoaXRlJTIwbWluaW1hbGlzdCUyMGJyYW5kaW5nJTIwbW9ja3VwfGVufDB8fHx8MTc3NTc0OTUyM3ww&ixlib=rb-4.1.0&q=85",
+        "title": "Project Beta",
+        "category": "Branding Mockup"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1615182786727-2651cbf754eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwzfHxibGFjayUyMGFuZCUyMHdoaXRlJTIwbWluaW1hbGlzdCUyMGJyYW5kaW5nJTIwbW9ja3VwfGVufDB8fHx8MTc3NTc0OTUyM3ww&ixlib=rb-4.1.0&q=85",
+        "title": "Project Gamma",
+        "category": "Product Design"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1769882068890-1a57d4fc5a24?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwzfHxtaW5pbWFsaXN0JTIwZGlnaXRhbCUyMGFic3RyYWN0JTIwM2R8ZW58MHx8fHwxNzc1NzQ5NTI0fDA&ixlib=rb-4.1.0&q=85",
+        "title": "Project Delta",
+        "category": "Abstract Architecture"
+      }
+    ],
+    "about_studio": {
+      "url": "https://images.unsplash.com/photo-1516131206008-dd041a9764fd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMGFnZW5jeSUyMHN0dWRpbyUyMGJyaWdodHxlbnwwfHx8fDE3NzU3NDk1Mzd8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Nuku Creative Studio Desk"
+    }
+  },
+  "animation_guidelines": {
+    "general": "Smooth, elegant, and understated. Avoid frantic movements. No mouse-follow effects per requirements.",
+    "scroll": "Implement Lenis for smooth momentum scrolling if possible. Essential for the premium Awwwards feel.",
+    "reveal": "Use framer-motion. Elements should fade in and translate up (y: 30 to 0) with a spring transition (stiffness: 100, damping: 20) as they enter the viewport.",
+    "hover": "Interactive elements should have transition duration of 300-500ms. Keep hover states confined to CSS or simple framer-motion variants."
+  },
+  "testing_requirements": "All interactive and key informational elements MUST include a 'data-testid' attribute (e.g., 'data-testid=\"contact-form-submit-button\"')."
+}
