@@ -3,7 +3,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "react-fast-marquee";
-import { Menu, X, ArrowUpRight, Sparkles, Layers, Users, Target, Zap, Building, Globe, Hexagon, Triangle, Circle, Square, ChevronLeft, ChevronRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Sparkles, Layers, Users, Target, Zap, Building, Globe, Hexagon, Triangle, Circle, Square, ChevronLeft, ChevronRight, Phone, Mail, MapPin, Instagram, Twitter, Linkedin, Facebook, Youtube } from "lucide-react";
 
 // Animation variants
 const fadeInUp = {
@@ -690,28 +690,107 @@ const CTASection = () => {
 
 // Footer Component
 const Footer = () => {
+  const socialLinks = [
+    { name: "Instagram", icon: Instagram, href: "https://instagram.com/nukucreative" },
+    { name: "Twitter", icon: Twitter, href: "https://twitter.com/nukucreative" },
+    { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/company/nukucreative" },
+    { name: "Facebook", icon: Facebook, href: "https://facebook.com/nukucreative" },
+    { name: "YouTube", icon: Youtube, href: "https://youtube.com/@nukucreative" }
+  ];
+
   return (
-    <footer className="py-12 px-6 md:px-12 border-t border-[#142073]/5" data-testid="footer">
+    <footer className="bg-[#142073] text-white py-16 px-6 md:px-12" data-testid="footer">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <a href="#" className="text-xl font-bold text-[#142073] tracking-tight" data-testid="footer-logo">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          {/* Brand Column */}
+          <div>
+            <a href="#" className="text-2xl font-bold text-white tracking-tight mb-4 block" data-testid="footer-logo">
               Nuku Creative
             </a>
-            <p className="text-[#5A6494] text-sm mt-2">
-              Creative systems for modern brands.
+            <p className="text-white/60 text-sm leading-relaxed mb-6">
+              Creative systems for modern brands. We combine design, strategy, and technology to craft impactful digital experiences.
             </p>
-          </div>
-          
-          <div className="flex items-center gap-8">
-            <a href="#portfolio" className="text-[#5A6494] hover:text-[#142073] transition-colors text-sm" data-testid="footer-link-work">Work</a>
-            <a href="#about" className="text-[#5A6494] hover:text-[#142073] transition-colors text-sm" data-testid="footer-link-about">About</a>
-            <a href="#contact" className="text-[#5A6494] hover:text-[#142073] transition-colors text-sm" data-testid="footer-link-contact">Contact</a>
+            {/* Social Icons */}
+            <div className="flex items-center gap-4" data-testid="footer-social">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#C3FF34] hover:text-[#142073] transition-all duration-300"
+                  data-testid={`footer-social-${social.name.toLowerCase()}`}
+                  aria-label={social.name}
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          <p className="text-[#5A6494] text-sm" data-testid="footer-copyright">
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-white font-semibold mb-6">Quick Links</h4>
+            <ul className="space-y-3">
+              <li><a href="#portfolio" className="text-white/60 hover:text-[#C3FF34] transition-colors text-sm" data-testid="footer-link-work">Our Work</a></li>
+              <li><a href="#about" className="text-white/60 hover:text-[#C3FF34] transition-colors text-sm" data-testid="footer-link-about">About Us</a></li>
+              <li><a href="#why-nuku" className="text-white/60 hover:text-[#C3FF34] transition-colors text-sm" data-testid="footer-link-services">Services</a></li>
+              <li><a href="#contact" className="text-white/60 hover:text-[#C3FF34] transition-colors text-sm" data-testid="footer-link-contact">Contact</a></li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="text-white font-semibold mb-6">Contact Info</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-[#C3FF34] mt-0.5 flex-shrink-0" />
+                <a href="tel:082394707711" className="text-white/60 hover:text-[#C3FF34] transition-colors text-sm" data-testid="footer-phone">
+                  082394707711
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-[#C3FF34] mt-0.5 flex-shrink-0" />
+                <a href="mailto:hai@nukucreative.com" className="text-white/60 hover:text-[#C3FF34] transition-colors text-sm" data-testid="footer-email">
+                  hai@nukucreative.com
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#C3FF34] mt-0.5 flex-shrink-0" />
+                <span className="text-white/60 text-sm" data-testid="footer-address">
+                  Sengkang, Sulawesi Selatan, Indonesia
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Map */}
+          <div>
+            <h4 className="text-white font-semibold mb-6">Find Us</h4>
+            <div className="rounded-xl overflow-hidden h-40 bg-white/10" data-testid="footer-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127169.32674776347!2d120.00095565!3d-4.1327725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d95bb7083e7c2f3%3A0x9e46e5f53af0d7e8!2sSengkang%2C%20Tempe%2C%20Wajo%20Regency%2C%20South%20Sulawesi!5e0!3m2!1sen!2sid!4v1704067200000!5m2!1sen!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Nuku Creative Location"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-white/40 text-sm" data-testid="footer-copyright">
             © {new Date().getFullYear()} Nuku Creative. All rights reserved.
           </p>
+          <div className="flex items-center gap-6">
+            <a href="#" className="text-white/40 hover:text-[#C3FF34] transition-colors text-sm">Privacy Policy</a>
+            <a href="#" className="text-white/40 hover:text-[#C3FF34] transition-colors text-sm">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>

@@ -155,9 +155,16 @@
 }
 
 .bento-card:hover {
-  border-color: rgba(20, 32, 115, 0.2);
-  box-shadow: 0 10px 40px rgba(195, 255, 52, 0.15);
+  background: #142073;
+  border-color: #142073;
+  box-shadow: 0 15px 50px rgba(20, 32, 115, 0.3);
   transform: translateY(-4px);
+}
+
+.bento-card:hover h3,
+.bento-card:hover p,
+.bento-card:hover svg {
+  color: white !important;
 }
 
 /* Portfolio Card */
