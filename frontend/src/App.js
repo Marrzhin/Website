@@ -1,50 +1,633 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { motion } from "framer-motion";
+import Marquee from "react-fast-marquee";
+import { Menu, X, ArrowUpRight, Sparkles, Layers, Users, Target, Zap, Building, Globe, Hexagon, Triangle, Circle, Square } from "lucide-react";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+  }
+};
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+// Header Component
+const Header = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { name: "Work", href: "#portfolio" },
+    { name: "About", href: "#about" },
+    { name: "Services", href: "#why-nuku" },
+    { name: "Contact", href: "#contact" }
+  ];
+
+  return (
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 glass py-4 border-b border-[#142073]/5" data-testid="header">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+          <a href="#" className="text-xl md:text-2xl font-bold text-[#142073] tracking-tight" data-testid="logo">
+            Nuku Creative
+          </a>
+          
+          <nav className="hidden md:flex items-center gap-8" data-testid="desktop-nav">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name}
+                href={link.href}
+                className="text-[#5A6494] hover:text-[#142073] transition-colors duration-300 link-hover text-sm font-medium"
+                data-testid={`nav-link-${link.name.toLowerCase()}`}
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
+
+          <a 
+            href="#contact"
+            className="hidden md:flex btn-primary text-sm"
+            data-testid="header-cta"
+          >
+            Start a Project
+          </a>
+
+          <button 
+            className="md:hidden p-2"
+            onClick={() => setMobileMenuOpen(true)}
+            data-testid="mobile-menu-button"
+            aria-label="Open menu"
+          >
+            <Menu className="w-6 h-6 text-[#142073]" />
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="mobile-menu" data-testid="mobile-menu">
+          <button 
+            className="absolute top-6 right-6 p-2"
+            onClick={() => setMobileMenuOpen(false)}
+            data-testid="mobile-menu-close"
+            aria-label="Close menu"
+          >
+            <X className="w-6 h-6 text-[#142073]" />
+          </button>
+          {navLinks.map((link) => (
+            <a 
+              key={link.name}
+              href={link.href}
+              className="text-2xl font-medium text-[#142073] hover:text-[#C3FF34] transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+              data-testid={`mobile-nav-link-${link.name.toLowerCase()}`}
+            >
+              {link.name}
+            </a>
+          ))}
+          <a 
+            href="#contact"
+            className="btn-primary mt-4"
+            onClick={() => setMobileMenuOpen(false)}
+            data-testid="mobile-header-cta"
+          >
+            Start a Project
+          </a>
+        </div>
+      )}
+    </>
+  );
+};
+
+// Hero Section
+const HeroSection = () => {
+  return (
+    <section className="hero-section" data-testid="hero-section">
+      {/* Neon Orbs */}
+      <div className="absolute top-0 right-0 w-[40vw] h-[40vw] rounded-full bg-[#C3FF34]/20 blur-[120px] -z-10 neon-orb" />
+      <div className="absolute bottom-0 left-0 w-[35vw] h-[35vw] rounded-full bg-[#C3FF34]/15 blur-[100px] -z-10 neon-orb-delayed" />
+      
+      <motion.div 
+        className="max-w-5xl mx-auto"
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
+      >
+        <motion.p 
+          className="section-title mb-6"
+          variants={fadeInUp}
+          data-testid="hero-label"
+        >
+          Creative Tech Agency
+        </motion.p>
+        
+        <motion.h1 
+          className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-[#142073] tracking-tighter leading-[0.95] mb-8"
+          variants={fadeInUp}
+          data-testid="hero-headline"
+        >
+          We build <span className="heading-emphasis">creative systems</span> for{" "}
+          <span className="heading-emphasis">modern</span> brands.
+        </motion.h1>
+        
+        <motion.p 
+          className="text-lg md:text-xl text-[#5A6494] max-w-2xl mx-auto mb-10 leading-relaxed"
+          variants={fadeInUp}
+          data-testid="hero-subheadline"
+        >
+          Nuku Creative is a creative tech agency combining design, strategy, and technology to craft impactful digital experiences.
+        </motion.p>
+        
+        <motion.div 
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          variants={fadeInUp}
+        >
+          <a href="#portfolio" className="btn-primary flex items-center gap-2" data-testid="hero-cta-portfolio">
+            View Portfolio
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+          <a href="#contact" className="btn-outline" data-testid="hero-cta-project">
+            Start a Project
+          </a>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+};
+
+// Why Nuku Section
+const WhyNukuSection = () => {
+  const points = [
+    {
+      icon: Sparkles,
+      title: "Creative Meets Technology",
+      description: "We blend design thinking with technical execution to create solutions that are not only beautiful, but functional."
+    },
+    {
+      icon: Layers,
+      title: "Tailored, Not Template",
+      description: "Every project is built from the ground up — aligned with your goals, not based on generic frameworks."
+    },
+    {
+      icon: Users,
+      title: "Collaborative Process",
+      description: "We work closely with you, ensuring transparency, clarity, and alignment at every stage."
+    },
+    {
+      icon: Target,
+      title: "Built for Impact",
+      description: "Our focus is not just output, but outcome — helping your brand move forward with purpose."
+    }
+  ];
+
+  return (
+    <section className="py-24 md:py-32 px-6 md:px-12" id="why-nuku" data-testid="why-nuku-section">
+      <div className="max-w-7xl mx-auto">
+        <motion.div 
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.p className="section-title" variants={fadeInUp}>Our Approach</motion.p>
+          <motion.h2 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#142073] tracking-tighter mb-6"
+            variants={fadeInUp}
+            data-testid="why-nuku-title"
+          >
+            Why Nuku Creative
+          </motion.h2>
+          <motion.p 
+            className="text-lg text-[#5A6494] max-w-2xl mx-auto"
+            variants={fadeInUp}
+            data-testid="why-nuku-intro"
+          >
+            We don't just design. We build systems that help brands grow, adapt, and stand out.
+          </motion.p>
+        </motion.div>
+
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          {points.map((point, index) => (
+            <motion.div 
+              key={index}
+              className="bento-card"
+              variants={fadeInUp}
+              data-testid={`why-nuku-point-${index + 1}`}
+            >
+              <point.icon className="w-8 h-8 text-[#142073] mb-6" />
+              <h3 className="text-xl md:text-2xl font-bold text-[#142073] mb-4">{point.title}</h3>
+              <p className="text-[#5A6494] leading-relaxed">{point.description}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// Client Logos Section
+const ClientLogosSection = () => {
+  const clients = [
+    { name: "TechFlow", icon: Zap },
+    { name: "BuildCorp", icon: Building },
+    { name: "GlobalNet", icon: Globe },
+    { name: "HexaSoft", icon: Hexagon },
+    { name: "TriForce", icon: Triangle },
+    { name: "CircleAI", icon: Circle },
+    { name: "SquareUp", icon: Square },
+    { name: "SparkLabs", icon: Sparkles }
+  ];
+
+  return (
+    <section className="py-16 border-y border-[#142073]/5 bg-white/50" data-testid="clients-section">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12 text-center">
+        <motion.p 
+          className="section-title"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          Trusted Partners
+        </motion.p>
+        <motion.h2 
+          className="text-3xl md:text-4xl font-bold text-[#142073] tracking-tighter mb-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          data-testid="clients-title"
+        >
+          Trusted by Growing Brands
+        </motion.h2>
+        <motion.p 
+          className="text-[#5A6494] max-w-xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          We collaborate with startups, organizations, and forward-thinking teams to bring ideas into reality.
+        </motion.p>
+      </div>
+
+      <Marquee gradient={false} speed={40} pauseOnHover data-testid="clients-marquee">
+        {clients.map((client, index) => (
+          <div 
+            key={index} 
+            className="client-logo mx-12 flex items-center gap-3 group cursor-pointer"
+            data-testid={`client-logo-${index + 1}`}
+          >
+            <client.icon className="w-8 h-8 text-[#142073] group-hover:text-[#C3FF34] transition-colors" />
+            <span className="text-xl font-semibold text-[#142073]">{client.name}</span>
+          </div>
+        ))}
+      </Marquee>
+    </section>
+  );
+};
+
+// Portfolio Section
+const PortfolioSection = () => {
+  const projects = [
+    {
+      url: "https://images.unsplash.com/photo-1774997282921-f5f9709b1333?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwZGlnaXRhbCUyMGFic3RyYWN0JTIwM2R8ZW58MHx8fHwxNzc1NzQ5NTI0fDA&ixlib=rb-4.1.0&q=85",
+      title: "Project Alpha",
+      category: "Brand Identity"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1676116777245-1cc40079cd38?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHw0fHxibGFjayUyMGFuZCUyMHdoaXRlJTIwbWluaW1hbGlzdCUyMGJyYW5kaW5nJTIwbW9ja3VwfGVufDB8fHx8MTc3NTc0OTUyM3ww&ixlib=rb-4.1.0&q=85",
+      title: "Project Beta",
+      category: "Digital Product"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1615182786727-2651cbf754eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwzfHxibGFjayUyMGFuZCUyMHdoaXRlJTIwbWluaW1hbGlzdCUyMGJyYW5kaW5nJTIwbW9ja3VwfGVufDB8fHx8MTc3NTc0OTUyM3ww&ixlib=rb-4.1.0&q=85",
+      title: "Project Gamma",
+      category: "Web Experience"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1769882068890-1a57d4fc5a24?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwzfHxtaW5pbWFsaXN0JTIwZGlnaXRhbCUyMGFic3RyYWN0JTIwM2R8ZW58MHx8fHwxNzc1NzQ5NTI0fDA&ixlib=rb-4.1.0&q=85",
+      title: "Project Delta",
+      category: "Interactive Design"
+    }
+  ];
+
+  return (
+    <section className="py-24 md:py-32 px-6 md:px-12" id="portfolio" data-testid="portfolio-section">
+      <div className="max-w-7xl mx-auto">
+        <motion.div 
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.p className="section-title" variants={fadeInUp}>Portfolio</motion.p>
+          <motion.h2 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#142073] tracking-tighter mb-6"
+            variants={fadeInUp}
+            data-testid="portfolio-title"
+          >
+            Selected Work
+          </motion.h2>
+          <motion.p 
+            className="text-lg text-[#5A6494] max-w-2xl mx-auto"
+            variants={fadeInUp}
+          >
+            A collection of our recent explorations across branding, digital products, and interactive experiences.
+          </motion.p>
+        </motion.div>
+
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          {projects.map((project, index) => (
+            <motion.div 
+              key={index}
+              className={`portfolio-card h-[300px] md:h-[400px] ${index % 2 === 1 ? 'md:mt-16' : ''}`}
+              variants={fadeInUp}
+              data-testid={`portfolio-item-${index + 1}`}
+            >
+              <img 
+                src={project.url} 
+                alt={project.title}
+                className="w-full h-full"
+                loading="lazy"
+              />
+              <div className="portfolio-overlay">
+                <div className="text-center text-white">
+                  <p className="text-sm uppercase tracking-widest mb-2 opacity-80">{project.category}</p>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4">{project.title}</h3>
+                  <button className="btn-neon text-sm" data-testid={`portfolio-view-${index + 1}`}>
+                    View Case
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// About Section
+const AboutSection = () => {
+  return (
+    <section className="py-24 md:py-32 px-6 md:px-12 bg-[#FAFAFA]" id="about" data-testid="about-section">
+      <div className="max-w-7xl mx-auto">
+        <motion.div 
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp}>
+            <p className="section-title">About Us</p>
+            <h2 
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#142073] tracking-tighter mb-8 leading-[1.1]"
+              data-testid="about-title"
+            >
+              About <span className="heading-emphasis">Nuku</span> Creative
+            </h2>
+            <div className="space-y-6 text-[#5A6494] text-lg leading-relaxed" data-testid="about-content">
+              <p>
+                Nuku Creative is a creative tech agency driven by curiosity, experimentation, and purpose.
+              </p>
+              <p>
+                We believe that great ideas deserve thoughtful execution — where design, technology, and strategy work as one system.
+              </p>
+              <p>
+                Our mission is to help brands rethink how they communicate, build, and grow in the digital era.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className="relative"
+            variants={fadeInUp}
+          >
+            <div className="rounded-[2rem] overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1516131206008-dd041a9764fd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMGFnZW5jeSUyMHN0dWRpbyUyMGJyaWdodHxlbnwwfHx8fDE3NzU3NDk1Mzd8MA&ixlib=rb-4.1.0&q=85"
+                alt="Nuku Creative Studio"
+                className="w-full h-auto object-cover"
+                loading="lazy"
+                data-testid="about-image"
+              />
+            </div>
+            {/* Decorative element */}
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[#C3FF34]/30 rounded-full blur-[60px] -z-10" />
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// CTA & Contact Section
+const CTASection = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', brief: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (formData.name && formData.email && formData.brief) {
+      setSubmitted(true);
     }
   };
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
+    <section className="py-12 md:py-24 px-6 md:px-12" id="contact" data-testid="cta-section">
+      <div className="cta-section max-w-7xl mx-auto p-8 md:p-16 lg:p-24 text-center relative z-10">
+        {/* Noise overlay for CTA section */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none rounded-[3rem]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+        }} />
+        
+        <motion.div 
+          className="relative z-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
         >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
+          <motion.p 
+            className="text-white/60 text-sm uppercase tracking-widest mb-6"
+            variants={fadeInUp}
+          >
+            Get Started
+          </motion.p>
+          
+          <motion.h2 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tighter mb-6"
+            variants={fadeInUp}
+            data-testid="cta-headline"
+          >
+            Let's build something <span className="heading-emphasis">impactful</span>.
+          </motion.h2>
+          
+          <motion.p 
+            className="text-white/70 text-lg max-w-xl mx-auto mb-12"
+            variants={fadeInUp}
+            data-testid="cta-subtext"
+          >
+            Tell us about your ideas, and we'll help you turn them into a powerful digital experience.
+          </motion.p>
+
+          {!submitted ? (
+            <motion.form 
+              onSubmit={handleSubmit}
+              className="max-w-2xl mx-auto space-y-6"
+              variants={fadeInUp}
+              data-testid="contact-form"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="cta-input"
+                  required
+                  data-testid="contact-input-name"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="cta-input"
+                  required
+                  data-testid="contact-input-email"
+                />
+              </div>
+              <textarea
+                name="brief"
+                placeholder="Tell us about your project..."
+                value={formData.brief}
+                onChange={handleChange}
+                rows={4}
+                className="cta-input resize-none"
+                required
+                data-testid="contact-input-brief"
+              />
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <button type="submit" className="btn-neon" data-testid="contact-form-submit">
+                  Start a Project
+                </button>
+                <a href="mailto:hello@nukucreative.com" className="text-white/70 hover:text-[#C3FF34] transition-colors" data-testid="contact-email-link">
+                  or email us directly
+                </a>
+              </div>
+            </motion.form>
+          ) : (
+            <motion.div 
+              className="text-center py-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              data-testid="contact-success"
+            >
+              <div className="w-16 h-16 bg-[#C3FF34] rounded-full flex items-center justify-center mx-auto mb-6">
+                <Sparkles className="w-8 h-8 text-[#142073]" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Message Sent!</h3>
+              <p className="text-white/70 text-lg">We'll get back to you as soon as possible.</p>
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// Footer Component
+const Footer = () => {
+  return (
+    <footer className="py-12 px-6 md:px-12 border-t border-[#142073]/5" data-testid="footer">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="text-center md:text-left">
+            <a href="#" className="text-xl font-bold text-[#142073] tracking-tight" data-testid="footer-logo">
+              Nuku Creative
+            </a>
+            <p className="text-[#5A6494] text-sm mt-2">
+              Creative systems for modern brands.
+            </p>
+          </div>
+          
+          <div className="flex items-center gap-8">
+            <a href="#portfolio" className="text-[#5A6494] hover:text-[#142073] transition-colors text-sm" data-testid="footer-link-work">Work</a>
+            <a href="#about" className="text-[#5A6494] hover:text-[#142073] transition-colors text-sm" data-testid="footer-link-about">About</a>
+            <a href="#contact" className="text-[#5A6494] hover:text-[#142073] transition-colors text-sm" data-testid="footer-link-contact">Contact</a>
+          </div>
+
+          <p className="text-[#5A6494] text-sm" data-testid="footer-copyright">
+            © {new Date().getFullYear()} Nuku Creative. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+// Home Page Component
+const HomePage = () => {
+  return (
+    <>
+      {/* Grain Overlay */}
+      <div className="grain-overlay" />
+      
+      <Header />
+      <main>
+        <HeroSection />
+        <WhyNukuSection />
+        <ClientLogosSection />
+        <PortfolioSection />
+        <AboutSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </>
   );
 };
 
 function App() {
   return (
-    <div className="App">
+    <div className="App min-h-screen bg-white">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
     </div>
