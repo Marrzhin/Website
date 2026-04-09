@@ -133,16 +133,33 @@ const heroSliderImages = [
 // Hero Section
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
+    if (isPaused) return;
+    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSliderImages.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isPaused]);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSliderImages.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSliderImages.length) % heroSliderImages.length);
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+    // Pause auto-rotation briefly after manual navigation
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 5000);
+  };
+
+  const nextSlide = () => {
+    const next = (currentSlide + 1) % heroSliderImages.length;
+    goToSlide(next);
+  };
+  
+  const prevSlide = () => {
+    const prev = (currentSlide - 1 + heroSliderImages.length) % heroSliderImages.length;
+    goToSlide(prev);
+  };
 
   return (
     <section className="hero-section" data-testid="hero-section">
@@ -238,7 +255,7 @@ const HeroSection = () => {
                     {heroSliderImages.map((_, index) => (
                       <button
                         key={index}
-                        onClick={() => setCurrentSlide(index)}
+                        onClick={() => goToSlide(index)}
                         className={`hero-slider-dot ${currentSlide === index ? 'active' : ''}`}
                         data-testid={`hero-slider-dot-${index}`}
                         aria-label={`Go to slide ${index + 1}`}
