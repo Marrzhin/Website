@@ -1,5 +1,52 @@
 /* Nuku Creative - App Styles */
 
+/* Edge Gradient Blurs - Blue-Green Grainy */
+.edge-gradient {
+  position: absolute;
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: -5;
+}
+
+.edge-gradient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.edge-gradient-top-left {
+  top: -20%;
+  left: -15%;
+  background: radial-gradient(circle, rgba(20, 32, 115, 0.5) 0%, rgba(195, 255, 52, 0.3) 40%, transparent 70%);
+}
+
+.edge-gradient-top-right {
+  top: -15%;
+  right: -20%;
+  background: radial-gradient(circle, rgba(195, 255, 52, 0.4) 0%, rgba(20, 32, 115, 0.3) 40%, transparent 70%);
+}
+
+.edge-gradient-bottom-left {
+  bottom: -20%;
+  left: -15%;
+  background: radial-gradient(circle, rgba(195, 255, 52, 0.35) 0%, rgba(20, 32, 115, 0.4) 40%, transparent 70%);
+}
+
+.edge-gradient-bottom-right {
+  bottom: -15%;
+  right: -20%;
+  background: radial-gradient(circle, rgba(20, 32, 115, 0.45) 0%, rgba(195, 255, 52, 0.35) 40%, transparent 70%);
+}
+
 /* Hero Section */
 .hero-section {
   min-height: 100vh;
@@ -7,10 +54,94 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   position: relative;
   overflow: hidden;
-  padding: 6rem 1.5rem;
+  padding: 8rem 1.5rem 6rem;
+}
+
+/* Hero Image Slider */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.hero-slider-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(20, 32, 115, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(20, 32, 115, 0.08);
+}
+
+.hero-slider-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-slider-controls {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 9999px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero-slider-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: #142073;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-slider-btn:hover {
+  background: rgba(195, 255, 52, 0.3);
+  color: #142073;
+}
+
+.hero-slider-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hero-slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(20, 32, 115, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-slider-dot.active {
+  background: #C3FF34;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.hero-slider-dot:hover:not(.active) {
+  background: rgba(20, 32, 115, 0.4);
 }
 
 /* Bento Card */
@@ -207,6 +338,12 @@
   font-weight: 400;
 }
 
+/* Green italic text for hero */
+.heading-emphasis.text-\[\#C3FF34\] {
+  color: #C3FF34;
+  text-shadow: 0 0 40px rgba(195, 255, 52, 0.4);
+}
+
 /* Animation Classes */
 .animate-fade-in {
   animation: fadeIn 0.6s ease forwards;
@@ -226,10 +363,26 @@
 /* Responsive Typography */
 @media (max-width: 768px) {
   .hero-section {
-    padding: 4rem 1rem;
+    padding: 6rem 1rem 4rem;
   }
   
   .bento-card {
     padding: 1.5rem;
+  }
+  
+  .hero-slider {
+    max-width: 100%;
+    margin-top: 2rem;
+  }
+  
+  .hero-slider-container {
+    border-radius: 1.5rem;
+  }
+  
+  .edge-gradient {
+    width: 60vw;
+    height: 60vw;
+    filter: blur(80px);
+    opacity: 0.4;
   }
 }

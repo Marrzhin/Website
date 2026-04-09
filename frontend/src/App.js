@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Marquee from "react-fast-marquee";
-import { Menu, X, ArrowUpRight, Sparkles, Layers, Users, Target, Zap, Building, Globe, Hexagon, Triangle, Circle, Square } from "lucide-react";
+import { Menu, X, ArrowUpRight, Sparkles, Layers, Users, Target, Zap, Building, Globe, Hexagon, Triangle, Circle, Square, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Animation variants
 const fadeInUp = {
@@ -110,57 +110,158 @@ const Header = () => {
   );
 };
 
+// Hero Slider Images
+const heroSliderImages = [
+  {
+    url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80",
+    alt: "Abstract gradient art"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=1200&q=80",
+    alt: "Creative design workspace"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?w=1200&q=80",
+    alt: "Digital abstract"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80",
+    alt: "Tech innovation"
+  }
+];
+
 // Hero Section
 const HeroSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSliderImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSliderImages.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSliderImages.length) % heroSliderImages.length);
+
   return (
     <section className="hero-section" data-testid="hero-section">
+      {/* Edge Gradient Blurs - Blue-Green */}
+      <div className="edge-gradient edge-gradient-top-left" />
+      <div className="edge-gradient edge-gradient-top-right" />
+      <div className="edge-gradient edge-gradient-bottom-left" />
+      <div className="edge-gradient edge-gradient-bottom-right" />
+      
       {/* Neon Orbs */}
       <div className="absolute top-0 right-0 w-[40vw] h-[40vw] rounded-full bg-[#C3FF34]/20 blur-[120px] -z-10 neon-orb" />
       <div className="absolute bottom-0 left-0 w-[35vw] h-[35vw] rounded-full bg-[#C3FF34]/15 blur-[100px] -z-10 neon-orb-delayed" />
       
       <motion.div 
-        className="max-w-5xl mx-auto"
+        className="max-w-6xl mx-auto w-full"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
-        <motion.p 
-          className="section-title mb-6"
-          variants={fadeInUp}
-          data-testid="hero-label"
-        >
-          Creative Tech Agency
-        </motion.p>
-        
-        <motion.h1 
-          className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-[#142073] tracking-tighter leading-[0.95] mb-8"
-          variants={fadeInUp}
-          data-testid="hero-headline"
-        >
-          We build <span className="heading-emphasis">creative systems</span> for{" "}
-          <span className="heading-emphasis">modern</span> brands.
-        </motion.h1>
-        
-        <motion.p 
-          className="text-lg md:text-xl text-[#5A6494] max-w-2xl mx-auto mb-10 leading-relaxed"
-          variants={fadeInUp}
-          data-testid="hero-subheadline"
-        >
-          Nuku Creative is a creative tech agency combining design, strategy, and technology to craft impactful digital experiences.
-        </motion.p>
-        
-        <motion.div 
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          variants={fadeInUp}
-        >
-          <a href="#portfolio" className="btn-primary flex items-center gap-2" data-testid="hero-cta-portfolio">
-            View Portfolio
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
-          <a href="#contact" className="btn-outline" data-testid="hero-cta-project">
-            Start a Project
-          </a>
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Text Content */}
+          <div className="text-center lg:text-left">
+            <motion.p 
+              className="section-title mb-6"
+              variants={fadeInUp}
+              data-testid="hero-label"
+            >
+              Creative Tech Agency
+            </motion.p>
+            
+            <motion.h1 
+              className="text-5xl md:text-6xl lg:text-[4.5rem] font-bold text-[#142073] tracking-tighter leading-[0.95] mb-8"
+              variants={fadeInUp}
+              data-testid="hero-headline"
+            >
+              We build <span className="heading-emphasis text-[#C3FF34]">creative systems</span> for{" "}
+              <span className="heading-emphasis text-[#C3FF34]">modern</span> brands.
+            </motion.h1>
+            
+            <motion.p 
+              className="text-lg md:text-xl text-[#5A6494] max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed"
+              variants={fadeInUp}
+              data-testid="hero-subheadline"
+            >
+              Nuku Creative is a creative tech agency combining design, strategy, and technology to craft impactful digital experiences.
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4"
+              variants={fadeInUp}
+            >
+              <a href="#portfolio" className="btn-primary flex items-center gap-2" data-testid="hero-cta-portfolio">
+                View Portfolio
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <a href="#contact" className="btn-outline" data-testid="hero-cta-project">
+                Start a Project
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right: Image Slider */}
+          <motion.div 
+            className="relative"
+            variants={fadeInUp}
+          >
+            <div className="hero-slider" data-testid="hero-slider">
+              <div className="hero-slider-container">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentSlide}
+                    src={heroSliderImages[currentSlide].url}
+                    alt={heroSliderImages[currentSlide].alt}
+                    className="hero-slider-image"
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                </AnimatePresence>
+                
+                {/* Slider Controls */}
+                <div className="hero-slider-controls">
+                  <button 
+                    onClick={prevSlide} 
+                    className="hero-slider-btn"
+                    data-testid="hero-slider-prev"
+                    aria-label="Previous slide"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <div className="hero-slider-dots">
+                    {heroSliderImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentSlide(index)}
+                        className={`hero-slider-dot ${currentSlide === index ? 'active' : ''}`}
+                        data-testid={`hero-slider-dot-${index}`}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  <button 
+                    onClick={nextSlide} 
+                    className="hero-slider-btn"
+                    data-testid="hero-slider-next"
+                    aria-label="Next slide"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+              
+              {/* Decorative glow behind slider */}
+              <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-[#C3FF34]/40 rounded-full blur-[80px] -z-10" />
+              <div className="absolute -top-8 -left-8 w-32 h-32 bg-[#142073]/20 rounded-full blur-[60px] -z-10" />
+            </div>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );
