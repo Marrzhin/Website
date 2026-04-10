@@ -310,7 +310,10 @@ const WhyNukuSection = () => {
   ];
 
   return (
-    <section className="py-24 md:py-32 px-6 md:px-12" id="why-nuku" data-testid="why-nuku-section">
+    <section className="py-24 md:py-32 px-6 md:px-12 relative overflow-hidden" id="why-nuku" data-testid="why-nuku-section">
+      {/* Decorative blur gradient accent - blue/teal grainy blob */}
+      <div className="accent-blob accent-blob-left" />
+      <div className="accent-blob accent-blob-right" />
       <div className="max-w-7xl mx-auto">
         <motion.div 
           className="text-center mb-16"
