@@ -174,7 +174,7 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 w-[35vw] h-[35vw] rounded-full bg-[#C3FF34]/15 blur-[100px] -z-10 neon-orb-delayed" />
       
       <motion.div 
-        className="max-w-6xl mx-auto w-full relative z-10"
+        className="max-w-6xl mx-auto w-full relative z-20"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
