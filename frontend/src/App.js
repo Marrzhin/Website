@@ -38,8 +38,13 @@ const Header = () => {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 glass py-4 border-b border-[#142073]/5" data-testid="header">
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          <a href="#" className="text-xl md:text-2xl font-bold text-[#142073] tracking-tight" data-testid="logo">
-            Nuku Creative
+          <a href="#" className="flex items-center" data-testid="logo">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_creative-systems-5/artifacts/6dhsbo4x_nuku%20%2811%29.png" 
+              alt="Nuku Creative" 
+              className="h-10 md:h-12 w-auto"
+              style={{ mixBlendMode: 'multiply' }}
+            />
           </a>
           
           <nav className="hidden md:flex items-center gap-8" data-testid="desktop-nav">
@@ -740,8 +745,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div>
-            <a href="#" className="text-2xl font-bold text-white tracking-tight mb-4 block" data-testid="footer-logo">
-              Nuku Creative
+            <a href="#" className="block mb-4" data-testid="footer-logo">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_creative-systems-5/artifacts/6dhsbo4x_nuku%20%2811%29.png" 
+                alt="Nuku Creative" 
+                className="h-12 w-auto brightness-0 invert"
+              />
             </a>
             <p className="text-white/60 text-sm leading-relaxed mb-6">
               Creative systems for modern brands. We combine design, strategy, and technology to craft impactful digital experiences.
