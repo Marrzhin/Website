@@ -325,7 +325,7 @@ const WhyNukuSection = () => {
             variants={fadeInUp}
             data-testid="why-nuku-title"
           >
-            Why Nuku Creative
+            Why Nuku <span className="heading-emphasis text-[#C3FF34]">Creative</span>
           </motion.h2>
           <motion.p 
             className="text-lg text-[#5A6494] max-w-2xl mx-auto"
@@ -394,7 +394,7 @@ const ClientLogosSection = () => {
           variants={fadeInUp}
           data-testid="clients-title"
         >
-          Trusted by Growing Brands
+          Trusted by <span className="heading-emphasis text-[#C3FF34]">Growing Brands</span>
         </motion.h2>
         <motion.p 
           className="text-[#5A6494] max-w-xl mx-auto"
@@ -464,7 +464,7 @@ const PortfolioSection = () => {
             variants={fadeInUp}
             data-testid="portfolio-title"
           >
-            Selected Work
+            Selected <span className="heading-emphasis text-[#C3FF34]">Work</span>
           </motion.h2>
           <motion.p 
             className="text-lg text-[#5A6494] max-w-2xl mx-auto"
