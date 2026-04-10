@@ -121,9 +121,9 @@
   height: 500px;
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(255, 255, 240, 0.35) 25%,
-    rgba(224, 255, 179, 0.2) 45%,
+    rgba(227, 248, 215, 0.7) 0%,
+    rgba(227, 248, 215, 0.5) 25%,
+    rgba(227, 248, 215, 0.3) 45%,
     transparent 65%
   );
   filter: blur(25px);
@@ -131,7 +131,7 @@
   transform: translate(-50%, -50%);
   transition: left 0.12s ease-out, top 0.12s ease-out;
   z-index: 1;
-  mix-blend-mode: soft-light;
+  mix-blend-mode: multiply;
 }
 
 .mouse-spotlight::after {
@@ -198,6 +198,32 @@
     transparent 70%
   );
   animation: blobFloat 8s ease-in-out infinite;
+}
+
+/* About Section Background with Doodle Pattern */
+.about-section-bg {
+  background: 
+    linear-gradient(to bottom, 
+      #C3FF34 0%, 
+      #C3FF34 40%,
+      #A8E82A 70%,
+      #7DBD2B 100%
+    );
+}
+
+.about-section-bg::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.25;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%237DBD2B' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M30 6 Q38 18 46 6'/%3E%3Cpath d='M65 10 L72 20 L58 20 Z'/%3E%3Cpath d='M6 35 Q14 28 22 35 Q14 42 6 35'/%3E%3Crect x='32' y='30' width='12' height='12' rx='2' transform='rotate(15 38 36)'/%3E%3Cpath d='M62 34 Q68 40 62 46 Q56 40 62 34'/%3E%3Cpath d='M10 62 L16 70 L10 78 L4 70 Z'/%3E%3Ccircle cx='40' cy='68' r='5'/%3E%3Cpath d='M64 60 C68 64 72 60 76 64 C72 68 68 64 64 68'/%3E%3Cpath d='M25 55 L30 65 L20 65 Z'/%3E%3Cpath d='M52 58 Q56 52 60 58 Q56 64 52 58'/%3E%3Cpath d='M18 45 L24 45 L21 52 Z'/%3E%3Ccircle cx='70' cy='45' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100px 100px;
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.9) 60%, rgba(0,0,0,1) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.9) 60%, rgba(0,0,0,1) 100%);
 }
 
 /* Hero Section */

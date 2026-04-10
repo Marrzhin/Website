@@ -533,7 +533,7 @@ const AboutSection = () => {
     <section 
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="py-24 md:py-32 px-6 md:px-12 bg-[#C3FF34] relative overflow-hidden" 
+      className="py-24 md:py-32 px-6 md:px-12 bg-[#C3FF34] relative overflow-hidden about-section-bg" 
       id="about" 
       data-testid="about-section"
     >
@@ -565,7 +565,7 @@ const AboutSection = () => {
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#142073] tracking-tighter mb-8 leading-[1.1]"
               data-testid="about-title"
             >
-              About <span className="heading-emphasis text-[#142073]">Nuku</span> Creative
+              <span className="heading-emphasis text-[#142073]">About</span> Nuku Creative
             </h2>
             <div className="space-y-6 text-[#142073]/80 text-lg leading-relaxed" data-testid="about-content">
               <p>
