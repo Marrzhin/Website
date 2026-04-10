@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -516,9 +516,42 @@ const PortfolioSection = () => {
 
 // About Section
 const AboutSection = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (sectionRef.current) {
+      const rect = sectionRef.current.getBoundingClientRect();
+      setMousePos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      });
+    }
+  };
+
   return (
-    <section className="py-24 md:py-32 px-6 md:px-12 bg-[#FAFAFA]" id="about" data-testid="about-section">
-      <div className="max-w-7xl mx-auto">
+    <section 
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      className="py-24 md:py-32 px-6 md:px-12 bg-[#C3FF34] relative overflow-hidden" 
+      id="about" 
+      data-testid="about-section"
+    >
+      {/* Mouse spotlight effect */}
+      <div 
+        className="mouse-spotlight"
+        style={{
+          left: mousePos.x,
+          top: mousePos.y,
+        }}
+      />
+      
+      {/* Secondary ambient blobs */}
+      <div className="about-ambient-blob about-blob-1" />
+      <div className="about-ambient-blob about-blob-2" />
+      <div className="about-ambient-blob about-blob-3" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div 
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center"
           initial="hidden"
@@ -527,14 +560,14 @@ const AboutSection = () => {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <p className="section-title">About Us</p>
+            <p className="section-title text-[#142073]/60">About Us</p>
             <h2 
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#142073] tracking-tighter mb-8 leading-[1.1]"
               data-testid="about-title"
             >
-              About <span className="heading-emphasis">Nuku</span> Creative
+              About <span className="heading-emphasis text-[#142073]">Nuku</span> Creative
             </h2>
-            <div className="space-y-6 text-[#5A6494] text-lg leading-relaxed" data-testid="about-content">
+            <div className="space-y-6 text-[#142073]/80 text-lg leading-relaxed" data-testid="about-content">
               <p>
                 Nuku Creative is a creative tech agency driven by curiosity, experimentation, and purpose.
               </p>
